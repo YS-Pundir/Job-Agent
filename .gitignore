@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# Virtual environment
+venv/
+.venv/
+
+# Output
+output/*.csv
+
+# IDE
+.vscode/
+.idea/
+
+# Useless junk (never commit)
+useless.txt
