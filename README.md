@@ -1,59 +1,153 @@
-# Job Agent
+# 🚀 Job Agent
 
-CLI tool that scrapes job listings from **Naukri**, **RemoteOK**, and **Wellfound** for a given job role and location, then saves them to a CSV file.
+A powerful CLI-based job scraping tool that aggregates job listings from multiple platforms like **Naukri, RemoteOK, and Wellfound** into a single structured CSV output.
 
-## Setup
+---
+
+## 📌 Features
+
+* 🔍 Search jobs by role and location
+* 🌐 Multi-source scraping:
+
+  * Naukri (dynamic scraping with browser automation)
+  * RemoteOK (API-based)
+  * Wellfound (JS-rendered scraping via Firecrawl)
+* ⚡ Fast and lightweight CLI tool
+* 📄 Exports results to CSV
+* 🧠 Supports headless browsing
+* 📴 Offline fallback support (HTML input)
+
+---
+
+## 🛠️ Tech Stack
+
+* **Python**
+* **BeautifulSoup**
+* **undetected-chromedriver**
+* **Firecrawl API**
+* **Requests**
+
+---
+
+## ⚙️ Setup
 
 ```bash
+# Create virtual environment
 python -m venv venv
+
+# Activate environment
+# Windows
+venv\Scripts\activate
+
+# Mac/Linux
 source venv/bin/activate
+
+# Install dependencies
 pip install -r requirements.txt
-cp .env.example .env   # add your FIRECRAWL_API_KEY
+
+# Setup environment variables
+cp .env.example .env
 ```
 
-Naukri scraping uses your system Chrome via `undetected-chromedriver` (installed automatically).
+Add your API key:
 
-## Usage
+```
+FIRECRAWL_API_KEY=your_api_key_here
+```
+
+---
+
+## 🚀 Usage
+
+### 🔎 Search jobs
 
 ```bash
-# Search all three boards
-python -m src.main --role "Product Manager" --location "Bangalore"
-
-# Search without location
-python -m src.main --role "Software Engineer"
-
-# Search specific sources only
-python -m src.main --role "Data Analyst" --location "Mumbai" --sources naukri,remoteok
-
-# Run Naukri browser in headless mode
-python -m src.main --role "Python Developer" --location "Bangalore" --headless
-
-# Use a saved Naukri HTML file (offline fallback)
-python -m src.main --role "Backend Engineer" --naukri-html ~/saved_naukri.html
+python -m src.main --role "Software Engineer" --location "Bangalore"
 ```
 
-Results are saved to `output/jobs_<timestamp>.csv`.
+### 🌍 Without location
 
-## CLI Arguments
+```bash
+python -m src.main --role "Backend Developer"
+```
 
-| Argument | Required | Description |
-| --- | --- | --- |
-| `--role` | Yes | Job role (e.g. "Product Manager", "Software Engineer") |
-| `--location` | No | Location (e.g. "Bangalore", "Mumbai", "Remote") |
-| `--sources` | No | Comma-separated sources: `naukri`, `remoteok`, `wellfound` (default: all) |
-| `--headless` | No | Run Naukri browser in headless mode |
-| `--naukri-html` | No | Path to a saved Naukri HTML file |
+### 🎯 Specific sources
 
-## Project Structure
+```bash
+python -m src.main --role "Data Analyst" --sources naukri,remoteok
+```
+
+### ⚡ Headless mode
+
+```bash
+python -m src.main --role "Python Developer" --headless
+```
+
+### 📴 Offline mode
+
+```bash
+python -m src.main --role "Backend Engineer" --naukri-html saved_file.html
+```
+
+---
+
+## 📂 Output
+
+All results are saved as:
+
+```
+output/jobs_<timestamp>.csv
+```
+
+---
+
+## 🧱 Project Structure
 
 ```
 src/
-├── main.py          # CLI entry-point
-├── models.py        # Job dataclass
-├── csv_writer.py    # CSV output logic
+├── main.py
+├── models.py
+├── csv_writer.py
 └── scrapers/
-    ├── base.py      # Abstract BaseScraper interface
-    ├── naukri.py     # undetected-chromedriver + BeautifulSoup
-    ├── remoteok.py   # Public JSON API
-    └── wellfound.py  # Firecrawl (JS-rendered page extraction)
+    ├── base.py
+    ├── naukri.py
+    ├── remoteok.py
+    └── wellfound.py
 ```
+
+---
+
+## 📌 CLI Arguments
+
+| Argument      | Required | Description    |
+| ------------- | -------- | -------------- |
+| --role        | ✅ Yes    | Job role       |
+| --location    | ❌ No     | Job location   |
+| --sources     | ❌ No     | Select sources |
+| --headless    | ❌ No     | Run without UI |
+| --naukri-html | ❌ No     | Use saved HTML |
+
+---
+
+## 🎯 Future Improvements
+
+* Web dashboard (React + Spring Boot 👀)
+* Database integration (PostgreSQL)
+* Scheduled scraping (cron jobs)
+* Docker support
+
+---
+
+## 👨‍💻 Author
+
+**YS-Pundir**
+
+---
+
+## ⭐ Contribute / Support
+
+If you like this project:
+
+* ⭐ Star the repo
+* 🍴 Fork it
+* 🚀 Improve it
